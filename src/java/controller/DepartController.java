@@ -38,15 +38,8 @@ public class DepartController {
         return "depart/newdepart";
     }
     @RequestMapping("new-depart")
-    public String createdepart(ModelMap model, HttpServletRequest request,BindingResult errors){
+    public String createdepart(ModelMap model, HttpServletRequest request){
         String name=request.getParameter("Name");
-        if(name.trim().length()==0){
-            errors.rejectValue("name", "depart", "Cannot Blank!");
-        }
-        if(errors.hasErrors()){
-            model.addAttribute("message", "Please fill out all fields");
-        }
-        else{
             Depart d=new Depart();
             d.setName(name);
             Session session= factory.openSession();
@@ -63,7 +56,7 @@ public class DepartController {
             }finally{
                 session.close();
             }
-        }
+        
         return "depart/newdepart";
     }
     @RequestMapping("departdetail")
